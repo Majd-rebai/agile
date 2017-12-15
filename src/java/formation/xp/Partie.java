@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author rebai
  */
 public class Partie {
-    private Carte[] tapis=new Carte[3];
+    private ArrayList<Carte> tapis = new ArrayList<Carte>();
     private static int miseTotale;
     private int dernierMise;
     private int nbrJoueur;
@@ -50,7 +50,7 @@ public class Partie {
         this.nbrJoueur = nbrJoueur;
     }
 
-    public void setTapis(Carte[] tapis) {
+    public void setTapis(ArrayList<Carte> tapis) {
         this.tapis = tapis;
     }
 
@@ -66,7 +66,7 @@ public class Partie {
         return nbrJoueur;
     }
 
-    public Carte[] getTapis() {
+    public ArrayList<Carte> getTapis() {
         return tapis;
     }
 
@@ -98,6 +98,7 @@ public class Partie {
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);
+                    listJoueur.add(joueur);
                   
                 }
                 this.joueurs=listJoueur;
@@ -197,7 +198,9 @@ public class Partie {
             k=k+1;
             if (k==joueurs.size()){
                 k=0;
+                this.tapis.add(this.deck.Pioche());
                 tour+=1;
+                
             }
             if (tour == 5 || restant == 1){
                 NotDone = false;
