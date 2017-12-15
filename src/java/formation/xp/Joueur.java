@@ -109,11 +109,16 @@ public class Joueur {
         return this.miseAct;
     }
     
+
     public void etreExclu(int derniereMise){
         if (derniereMise> this.montant){
             exclu=true;
         }
-        
+    }
+    
+    public int voirSommeRestante(){
+        return this.getMontant();
+
     }
     
     public ArrayList <Carte>  voirMesCartes(){

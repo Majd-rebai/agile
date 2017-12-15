@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author rebai
  */
 public class Partie {
-    private Carte[] tapis;
+    private Carte[] tapis=new Carte[3];
     private int miseTotale;
     private int dernierMise;
     private int nbrJoueur;
@@ -71,7 +71,7 @@ public class Partie {
     }
 
 
-
+   
 
    public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
        System.out.println("Bienvenu au jeu Poker! ");
@@ -87,12 +87,9 @@ public class Partie {
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);
-                    
                     listJoueur.add(joueur);
-                    
                 }
                 this.joueurs=listJoueur;
-                //this.piocheInitiale();
                 //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
                     //introduire le nom de joueur
                     //System.out.println("Veuillez saisir le nom du joueur "+i);
@@ -107,7 +104,6 @@ public class Partie {
                      //this.joueurs=listJoueur;
     }
                
-
    
     public void piocheInitiale(){
         for (int i=0;i<nbrJoueur;i++){
@@ -118,13 +114,6 @@ public class Partie {
             joueurs.get(i).setMain(tmp);
         }
     }
-   public void miserP(int m){
-       this.dernierMise=m;
-       this.miseTotale=miseTotale+m;
-   }
-    
 
-    
 }
-
 

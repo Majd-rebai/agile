@@ -56,6 +56,12 @@ public class JoueurTest extends TestCase{
         
         
         
+        //test voirSommeRestante
+        int m1 = 400;
+        int montantDebut1=1000;
+        Joueur J1 = new Joueur("toto1",montantDebut1,0);
+        J1.miser(m1,instanceP);
+        assertEquals(montantDebut1-m1,J1.voirSommeRestante());
         
         
         
