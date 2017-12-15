@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Joueur {
     private String nom;
+    private int montant;
     private Map<Integer, Integer> cave= new HashMap<Integer, Integer>();
     private Carte[] main =new Carte[2];
 
@@ -40,9 +41,22 @@ public class Joueur {
         this.nom = nom;
     }
 
-    public Joueur(String nom) {
-        this.nom = nom;
+   
+    public int getMontant() {
+        return montant;
     }
+
+    public void setMontant(int montant) {
+        this.montant = montant;
+    }
+
+    public Joueur(String nom, int montant) {
+        this.nom = nom;
+        this.montant = montant;
+    }
+
+    
+    
     
     
    
