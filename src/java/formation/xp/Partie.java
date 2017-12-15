@@ -71,7 +71,18 @@ public class Partie {
     }
 
 
+
    
+
+    public void initNbrJoueurs(String[] nomJoueur, int[] montantJoueur ){
+        System.out.println("Veuillez saisir le nombre de joueurs:");
+        Scanner sc= new Scanner(System.in);
+        String nbrJoueurs = sc.nextLine();
+        this.setNbrJoueur(Integer.parseInt(nbrJoueurs));  
+        init(this.nbrJoueur,nomJoueur,montantJoueur);
+    }
+
+
 
    public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
        System.out.println("Bienvenu au jeu Poker! ");
