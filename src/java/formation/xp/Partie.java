@@ -18,6 +18,15 @@ public class Partie {
     private int dernierMise;
     private int nbrJoueur;
     private List<Joueur> joueurs = new ArrayList<Joueur>();
+    private Deck deck;
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
 
     public void setJoueurs(List<Joueur> joueurs) {
         this.joueurs = joueurs;
@@ -60,6 +69,7 @@ public class Partie {
         return tapis;
     }
 
+
    
 
    public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
@@ -93,6 +103,21 @@ public class Partie {
                 //this.joueurs=listJoueur;
                
                 
-   }
+   
     
+
+
+
+
+    
+    public void piocheInitiale(){
+        for (int i=0;i<nbrJoueur;i++){
+            Carte[] tmp= new Carte[2];
+            tmp[0]= deck.Pioche();
+            tmp[1]=deck.Pioche();
+            joueurs.get(i).setMain(tmp);
+        }
+    }
+
+}
 
