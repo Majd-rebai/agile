@@ -98,7 +98,7 @@ public class Partie {
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);
-                    listJoueur.add(joueur);
+                  
                 }
                 this.joueurs=listJoueur;
                 //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
@@ -134,7 +134,7 @@ public class Partie {
 
 
    public void faireAction(){
-       int j;
+       int j = 0;
        int i=j;
        int tour=0;
        int k=0;
@@ -186,6 +186,7 @@ public class Partie {
                    joueurs.get(i%joueurs.size()).passer();
                    restant-=restant;
                }
+
             }
             k=k+1;
             if (k==joueurs.size()){
@@ -198,7 +199,30 @@ public class Partie {
         }
         
        
-    }
+    
+
+       
+       i=i+1;
+       if (i==joueurs.size()){
+           i=0;
+           tour+=1;
+       }
+ 
+   }
+
+    
+   
+   
+   public Joueur gagnat(){
+       Joueur gagnant=new Joueur();
+       for (int i=0;i<joueurs.size();i++){
+           if (joueurs.get(i).isExclu()==false){
+               
+           }
+       }
+       return gagnant;
+   }
+
 }
 
 

@@ -16,8 +16,13 @@ public class Joueur {
     private int montant;
     private int miseAct;
     private boolean exclu;
+    private boolean croupier;
     private Map<Integer, Integer> cave= new HashMap<Integer, Integer>();
     private ArrayList <Carte> main = new ArrayList <Carte>();
+
+    Joueur() {
+        
+    }
 
     public Map<Integer, Integer> getCave() {
         return cave;
@@ -25,6 +30,14 @@ public class Joueur {
 
     public ArrayList <Carte>  getMain() {
         return main;
+    }
+
+    public boolean isCroupier() {
+        return croupier;
+    }
+
+    public void setCroupier(boolean croupier) {
+        this.croupier = croupier;
     }
 
     public String getNom() {
