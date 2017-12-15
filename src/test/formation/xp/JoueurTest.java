@@ -27,32 +27,34 @@ public class JoueurTest extends TestCase{
     @Test
     public void testMiser() {
         System.out.println("miser");
-        int nbrJoueur =2;
-        String[] nomJoueur ={"Majd","Bilel"};
-        int[] montantJoueur ={1000,2000};
+        int nbrJoueur =3;
+        String[] nomJoueur ={"Majd","Bilel","toto"};
+        int[] montantJoueur ={1000,2000,100};
         Partie instanceP = new Partie();
         instanceP.init(nbrJoueur, nomJoueur, montantJoueur);
         int m = 200;
-        int montantDebut=1000;
-        Joueur instanceJ = new Joueur("toto",montantDebut,0);
-        //test miser
-        instanceJ.miser(m,instanceP);
-        assertEquals(montantDebut-m,instanceJ.getMontant());
+        instanceP.getJoueurs().get(0).miser(m,instanceP);
+        assertEquals(1000-m,instanceP.getJoueurs().get(0).getMontant());
         assertEquals(instanceP.getMiseTotale(), m);
-        assertEquals(m,instanceJ.getMiseAct());
+        assertEquals(m,instanceP.getJoueurs().get(0).getMiseAct());
         //test suivre
-        instanceJ.suivre(instanceP.getDernierMise(), instanceP);
-        assertEquals(m,instanceJ.getMiseAct());
+        instanceP.getJoueurs().get(0).suivre(instanceP.getDernierMise(), instanceP);
+        assertEquals(m,instanceP.getJoueurs().get(0).getMiseAct());
         //test relance
-        instanceJ.relancer(300,instanceP.getDernierMise(), instanceP );
+        instanceP.getJoueurs().get(0).relancer(300,instanceP.getDernierMise(), instanceP );
         assertEquals(instanceP.getDernierMise(),300);
         //test faireTapis
-        instanceJ.faireTapis(instanceP);
-        assertEquals(0,instanceJ.getMontant());
-        assertEquals(instanceJ.getMiseAct(),instanceP.getDernierMise());
+        instanceP.getJoueurs().get(0).faireTapis(instanceP);
+        assertEquals(0,instanceP.getJoueurs().get(0).getMontant());
+        assertEquals(instanceP.getJoueurs().get(0).getMiseAct(),instanceP.getDernierMise());
         //test passer
-        instanceJ.passer();
-        assertEquals(true,instanceJ.isExclu());
+        instanceP.getJoueurs().get(0).passer();
+        assertEquals(true,instanceP.getJoueurs().get(0).isExclu());
+        //test etreExclu
+        instanceP.getJoueurs().get(2).etreExclu(instanceP.getDernierMise());
+        assertEquals(true, instanceP.getJoueurs().get(2).isExclu());
+        
+        
         
         
         
