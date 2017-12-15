@@ -99,7 +99,6 @@ public class Partie {
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);
                     listJoueur.add(joueur);
-                  
                 }
                 this.joueurs=listJoueur;
                 //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
@@ -138,19 +137,19 @@ public class Partie {
 
        int croupier=0;
        System.out.println(joueurs.get(croupier).getNom()+", vous êtes le croupier");
-       System.out.println(joueurs.get((croupier-1)%joueurs.size()).getNom()+", choisir la petite mise");
+       System.out.println(joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).getNom()+", choisir la petite mise");
        Scanner sc= new Scanner(System.in);
        int petiteBlind=Integer.parseInt(sc.nextLine());
-       joueurs.get((croupier-1)%joueurs.size()).miser(petiteBlind, this);
-       joueurs.get((croupier-2)%joueurs.size()).miser(petiteBlind*2, this);
-       int i=(croupier-3)%joueurs.size();
+       joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).miser(petiteBlind, this);
+       joueurs.get((croupier+joueurs.size()-2)%joueurs.size()).miser(petiteBlind*2, this);
+       int i=(croupier+joueurs.size()-3)%joueurs.size();
        int tour=0;
        int k=0;
        int firstMise = 0;
        int restant=joueurs.size();
        boolean NotDone = true;
        while ( NotDone ){
-           joueurs.get(i).etreExclu(dernierMise);
+           joueurs.get(i%joueurs.size()).etreExclu(dernierMise);
            if (joueurs.get(i%joueurs.size()).isExclu()) {
                restant-=1;
            }
@@ -196,6 +195,7 @@ public class Partie {
 
             }
             k=k+1;
+            i=i+1;
             if (k==joueurs.size()){
                 k=0;
                 this.tapis.add(this.deck.Pioche());
@@ -206,16 +206,6 @@ public class Partie {
                 NotDone = false;
             }
         }
-        
-       
-    
-
-       
-       i=i+1;
-       if (i==joueurs.size()){
-           i=0;
-           tour+=1;
-       }
  
    }
 
