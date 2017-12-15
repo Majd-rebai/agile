@@ -85,7 +85,7 @@ public class Partie {
 
 
    public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
-       System.out.println("Bienvenu au jeu Poker! ");
+                System.out.println("Bienvenu au jeu Poker! ");
                 //initialisatiion d'une partie avec une miseTotale=0 et derniereMise=0 et nobre de joueur introduit par les joueurs
                 //System.out.println("Veuillez saisir le nombre de joueurs:");
                 //Scanner sc= new Scanner(System.in);
@@ -134,58 +134,71 @@ public class Partie {
 
 
    public void faireAction(){
-       int i=0;
+       int j;
+       int i=j;
        int tour=0;
+       int k=0;
+       int firstMise = 0;
        int restant=joueurs.size();
-       while ( (i < joueurs.size()) && (restant>1) ){
+       boolean NotDone = true;
+       while ( NotDone ){
            joueurs.get(i).etreExclu(dernierMise);
-           if (joueurs.get(i).isExclu()) {
+           if (joueurs.get(i%joueurs.size()).isExclu()) {
                restant-=1;
            }
        
-           if ( joueurs.get(i).isExclu() == false){
-               System.out.println("Vous ête le joueur: "+ joueurs.get(i).getNom() +"! Veuillez choisir une action:\nmiser\nsuivre\nrelancer\nfaireTapis\npasser");
+           if ( joueurs.get(i%joueurs.size()).isExclu() == false){
+               System.out.println("Vous ête le joueur: "+ joueurs.get(i%joueurs.size()).getNom() +"! Veuillez choisir une action:");
+               if (firstMise!=0){
+                   System.out.println("\nsuivre\nrelancer\nfaireTapis\npasser\n");
+               }
+               else{
+                   System.out.println("\nmiser\n");
+                   firstMise=1;
+               }
                Scanner sc= new Scanner(System.in);
                String action = sc.nextLine();
                if (action.equals("miser")){
                        System.out.println("donner le montant de ta mise");
                        int mise=Integer.parseInt(sc.nextLine());
-                       joueurs.get(i).miser(mise, this);
+                       joueurs.get(i%joueurs.size()).miser(mise, this);
                }
                        
                if (action.equals("suivre")){
-                   joueurs.get(i).suivre(dernierMise, this);
+                   joueurs.get(i%joueurs.size()).suivre(dernierMise, this);
                }
                    
                if (action.equals("relance")){
                    
                    System.out.println("donner le montant de ta mise");
                    int mise=Integer.parseInt(sc.nextLine());
-                   joueurs.get(i).relancer(mise, dernierMise, this);
+                   joueurs.get(i%joueurs.size()).relancer(mise, dernierMise, this);
                }
            
            
                if (action.equals("faireTapis")){
-                   joueurs.get(i).faireTapis(this);
+                   joueurs.get(i%joueurs.size()).faireTapis(this);
                    
                }
               
                
                if (action.equals("passer")){
-                   joueurs.get(i).passer();
+                   joueurs.get(i%joueurs.size()).passer();
                    restant-=restant;
                }
-       }
-       i=i+1;
-       if (i==joueurs.size()){
-           i=0;
-           tour+=1;
-       }
- 
-   }
-
-    
-   }
+            }
+            k=k+1;
+            if (k==joueurs.size()){
+                k=0;
+                tour+=1;
+            }
+            if (tour == 5 || restant == 1){
+                NotDone = false;
+            }
+        }
+        
+       
+    }
 }
 
 
