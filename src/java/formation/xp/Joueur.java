@@ -20,10 +20,10 @@ public class Joueur {
     private Map<Integer, Integer> cave= new HashMap<Integer, Integer>();
     private ArrayList <Carte> main = new ArrayList <Carte>();
 
+
     Joueur() {
         
     }
-
     public Map<Integer, Integer> getCave() {
         return cave;
     }

@@ -134,8 +134,15 @@ public class Partie {
 
 
    public void faireAction(){
-       int j = 0;
-       int i=j;
+
+       int croupier=0;
+       System.out.println(joueurs.get(croupier).getNom()+", vous êtes le croupier");
+       System.out.println(joueurs.get((croupier-1)%joueurs.size()).getNom()+", choisir la petite mise");
+       Scanner sc= new Scanner(System.in);
+       int petiteBlind=Integer.parseInt(sc.nextLine());
+       joueurs.get((croupier-1)%joueurs.size()).miser(petiteBlind, this);
+       joueurs.get((croupier-2)%joueurs.size()).miser(petiteBlind*2, this);
+       int i=(croupier-3)%joueurs.size();
        int tour=0;
        int k=0;
        int firstMise = 0;
@@ -156,7 +163,6 @@ public class Partie {
                    System.out.println("\nmiser\n");
                    firstMise=1;
                }
-               Scanner sc= new Scanner(System.in);
                String action = sc.nextLine();
                if (action.equals("miser")){
                        System.out.println("donner le montant de ta mise");
