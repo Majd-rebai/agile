@@ -62,6 +62,8 @@ public class Joueur {
         
     }
     
-   
+    public Carte[] voirMesCartes(){
+        return main;
+    }
     
 }
