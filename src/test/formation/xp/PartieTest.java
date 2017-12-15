@@ -35,6 +35,7 @@ public class PartieTest extends TestCase{
         assertEquals(2, instance.getJoueurs().size() ) ;
         assertEquals("Majd", instance.getJoueurs().get(0).getNom() ) ;
         assertEquals(100, instance.getJoueurs().get(0).getMontant() ) ;
+        //assertEquals(2,instance.getJoueurs().get(0).getMain().length);
 
     }
 }

@@ -14,6 +14,8 @@ import java.util.Map;
 public class Joueur {
     private String nom;
     private int montant;
+    private int miseAct;
+    private boolean exclu;
     private Map<Integer, Integer> cave= new HashMap<Integer, Integer>();
     private ArrayList <Carte> main = new ArrayList <Carte>();
 
@@ -27,6 +29,22 @@ public class Joueur {
 
     public String getNom() {
         return nom;
+    }
+
+    public void setExclu(boolean exclu) {
+        this.exclu = exclu;
+    }
+
+    public boolean isExclu() {
+        return exclu;
+    }
+
+    public int getMiseAct() {
+        return miseAct;
+    }
+
+    public void setMiseAct(int miseAct) {
+        this.miseAct = miseAct;
     }
 
     public void setCave(Map<Integer, Integer> cave) {
@@ -50,20 +68,50 @@ public class Joueur {
         this.montant = montant;
     }
 
-    public Joueur(String nom, int montant) {
+    public Joueur(String nom, int montant, int miseAct) {
         this.nom = nom;
         this.montant = montant;
+        this.miseAct= miseAct;
+        this.exclu= false;
     }
 
     
     
     
-    public void miser(int m){
+    public void miser(int m,Partie game){
+        if (m<= this.getMontant()){
+            this.setMontant(this.getMontant()-m);
+            this.miseAct=m;
+        }
+        game.miserP(m);
+    }
+        
+    public void suivre(int derniereMise, Partie game){
+        miser(derniereMise,game);
+        
         
     }
+    public void faireTapis(Partie game){
+        miser(this.getMontant(), game);
+    }
+    
+    public void relancer(int mise, int derniereMise, Partie game){
+        if (mise >= derniereMise){
+            miser(mise, game);
+        }
+    }
+    public void passer(){
+        this.exclu=true;
+    } 
+    
+    public int voirMaMiseAct(){
+        return this.miseAct;
+    }
+    
+ 
     
     public ArrayList <Carte>  voirMesCartes(){
         return main;
     }
-    
 }
+
