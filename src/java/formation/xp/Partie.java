@@ -100,18 +100,10 @@ public class Partie {
                     //Joueur joueur=new Joueur(nom,montant);
                     //listJoueur.add(joueur);
                     
-                    
-                }
-                //this.joueurs=listJoueur;
+                     //this.joueurs=listJoueur;
+    }
                
-                
    
-    
-
-
-
-
-    
     public void piocheInitiale(){
         for (int i=0;i<nbrJoueur;i++){
             Carte[] tmp= new Carte[2];
