@@ -69,6 +69,8 @@ public class Partie {
                 //Scanner sc= new Scanner(System.in);
                 //String nbrJoueur = sc.nextLine();
                 //this.setNbrJoueur(Integer.parseInt(nbrJoueur));
+                this.setDernierMise(0);
+                this.setMiseTotale(0);
                 this.setNbrJoueur(nbrJoueur);
                 
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
