@@ -60,30 +60,39 @@ public class Partie {
         return tapis;
     }
 
-    public Partie(int miseTotale, int dernierMise, int nbrJoueur) {
-        this.miseTotale = miseTotale;
-        this.dernierMise = dernierMise;
-        this.nbrJoueur = nbrJoueur;
-    }
+   
 
-   public void init(){
+   public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
        System.out.println("Bienvenu au jeu Poker! ");
                 //initialisatiion d'une partie avec une miseTotale=0 et derniereMise=0 et nobre de joueur introduit par les joueurs
-                System.out.println("Veuillez saisir le nombre de joueurs:");
-                Scanner sc= new Scanner(System.in);
-                String nbrJoueur = sc.nextLine();
-                Partie test=new Partie(0,0,Integer.parseInt(nbrJoueur));
+                //System.out.println("Veuillez saisir le nombre de joueurs:");
+                //Scanner sc= new Scanner(System.in);
+                //String nbrJoueur = sc.nextLine();
+                //this.setNbrJoueur(Integer.parseInt(nbrJoueur));
+                this.setNbrJoueur(nbrJoueur);
                 
-                for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
+                List<Joueur> listJoueur= new ArrayList<Joueur>();
+                for (int i=0; i< nbrJoueur; i++){
+                    Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i]);
+                    listJoueur.add(joueur);
+                }
+                this.joueurs=listJoueur;
+                //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
                     //introduire le nom de joueur
-                    System.out.println("Veuillez saisir le nom du joueur "+i);
-                    String nom= sc.nextLine();
+                    //System.out.println("Veuillez saisir le nom du joueur "+i);
+                    //String nom= sc.nextLine();
                     // introduir la cave du joueur
-                    System.out.println("Veuillez saisir le montant du joueur "+i);
-                    int montant= Integer.parseInt(sc.nextLine());
+                    //System.out.println("Veuillez saisir le montant du joueur "+i);
+                    //int montant= Integer.parseInt(sc.nextLine());
+                    
+                    //Joueur joueur=new Joueur(nom,montant);
+                    //listJoueur.add(joueur);
                     
                     
                 }
+                //this.joueurs=listJoueur;
+               
+                
    }
     
-}
+
