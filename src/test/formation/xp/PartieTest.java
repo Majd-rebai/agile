@@ -32,7 +32,9 @@ public class PartieTest extends TestCase{
         int[] montantJoueur ={100,200};
         Partie instance = new Partie();
         instance.init(nbrJoueur, nomJoueur, montantJoueur);
-        assertEquals(2, instance.getNbrJoueur() ) ;
+        assertEquals(2, instance.getJoueurs().size() ) ;
+        assertEquals("Majd", instance.getJoueurs().get(0).getNom() ) ;
+        assertEquals(100, instance.getJoueurs().get(0).getMontant() ) ;
 
     }
 }
