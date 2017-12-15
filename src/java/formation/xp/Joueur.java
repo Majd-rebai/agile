@@ -58,6 +58,9 @@ public class Joueur {
     
     
     
+    public void miser(int m){
+        
+    }
     
    
     

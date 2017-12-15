@@ -4,7 +4,9 @@
  */
 package formation.xp;
 
+
 import junit.framework.TestCase;
+
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,10 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author rebai
- */
+
+
 public class PartieTest extends TestCase{
     
     
@@ -33,5 +33,6 @@ public class PartieTest extends TestCase{
         Partie instance = new Partie();
         instance.init(nbrJoueur, nomJoueur, montantJoueur);
         assertEquals(2, instance.getNbrJoueur() ) ;
+
     }
 }
