@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Partie {
     private Carte[] tapis=new Carte[3];
-    private int miseTotale;
+    private static int miseTotale;
     private int dernierMise;
     private int nbrJoueur;
     private List<Joueur> joueurs = new ArrayList<Joueur>();
@@ -58,7 +58,7 @@ public class Partie {
         return dernierMise;
     }
 
-    public int getMiseTotale() {
+    public static int getMiseTotale() {
         return miseTotale;
     }
 

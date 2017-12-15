@@ -11,8 +11,19 @@ public class Main {
         	    Partie instance=new Partie();
                     instance.init(nbrJoueur, nomJoueur, montantJoueur);
                     instance.piocheInitiale();
+
                     //Joueur joueur1 = instance.getJoueurs().get(0);
                     //System.out.println(joueur1.voirMesCartes().get(0).value);
                     instance.faireAction();
+
+                    Joueur joueur1 = instance.getJoueurs().get(0);
+                    Joueur joueur2 = instance.getJoueurs().get(1);
+                    System.out.println(joueur1.voirMesCartes().get(0).color);
+                    joueur1.miser(50,instance);
+                    joueur2.miser(60,instance);
+                    System.out.println(instance.getMiseTotale());
+                    
+                    
+
 	}
 }

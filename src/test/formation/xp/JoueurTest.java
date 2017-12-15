@@ -63,6 +63,15 @@ public class JoueurTest extends TestCase{
         J1.miser(m1,instanceP);
         assertEquals(montantDebut1-m1,J1.voirSommeRestante());
         
+        //test voir Somme en jeu
+        Partie P1 = new Partie();
+        P1.init(nbrJoueur, nomJoueur, montantJoueur); 
+        J1 = P1.getJoueurs().get(0);
+        Joueur J2 = P1.getJoueurs().get(1);
+        J1.miser(50, P1);
+        J2.miser(100, P1);
+        assertEquals(150,J1.voirSommeEnJeu());
+
         
         
     }

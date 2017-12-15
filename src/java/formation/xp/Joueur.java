@@ -120,6 +120,10 @@ public class Joueur {
 
     }
     
+    public int voirSommeEnJeu(){
+        return Partie.getMiseTotale();
+    }
+    
     public ArrayList <Carte>  voirMesCartes(){
         return main;
 
