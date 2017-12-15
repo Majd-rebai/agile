@@ -83,7 +83,7 @@ public class Partie {
                 this.setDernierMise(0);
                 this.setMiseTotale(0);
                 this.setNbrJoueur(nbrJoueur);
-                
+                deck = new Deck();
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);

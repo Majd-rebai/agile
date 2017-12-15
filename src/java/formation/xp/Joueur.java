@@ -95,6 +95,7 @@ public class Joueur {
         miser(this.getMontant(), game);
     }
     
+<<<<<<< HEAD
     public void relancer(int mise, int derniereMise, Partie game){
         if (mise >= derniereMise){
             miser(mise, game);
@@ -112,6 +113,10 @@ public class Joueur {
     
     public ArrayList <Carte>  voirMesCartes(){
         return main;
+=======
+    public ArrayList<Carte>  voirMesCartes(){
+           return main;
+>>>>>>> v1
     }
 }
 
