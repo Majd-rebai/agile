@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.ArrayList;
 /**
  *
  * @author bradai
@@ -28,7 +29,8 @@ public class voirMesCartesTest extends TestCase {
         Partie instance = new Partie();
         instance.init(nbrJoueur, nomJoueur, montantJoueur);
         Joueur joueur1 = instance.getJoueurs().get(0);
-        Carte[] main = joueur1.getMain();
+        ArrayList <Carte>  main = joueur1.getMain();
         assertEquals(main, joueur1.voirMesCartes());
+        
     }
 }

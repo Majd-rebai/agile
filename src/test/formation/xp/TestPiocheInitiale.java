@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+import java.util.ArrayList;
 
 
 public class TestPiocheInitiale extends TestCase{
@@ -32,8 +32,10 @@ public class TestPiocheInitiale extends TestCase{
         int[] montantJoueur ={100,200};
         Partie instance = new Partie();
         instance.init(nbrJoueur, nomJoueur, montantJoueur);
-        Carte[] main = instance.getJoueurs().get(0).getMain();
-        assertEquals(2, main.length);
+        instance.piocheInitiale();
+        
+        ArrayList <Carte>  main = instance.getJoueurs().get(0).getMain();
+        assertEquals(2, main.size());
 
     }
 }

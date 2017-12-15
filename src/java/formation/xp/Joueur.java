@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package formation.xp;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,13 +15,13 @@ public class Joueur {
     private String nom;
     private int montant;
     private Map<Integer, Integer> cave= new HashMap<Integer, Integer>();
-    private Carte[] main =new Carte[2];
+    private ArrayList <Carte> main = new ArrayList <Carte>();
 
     public Map<Integer, Integer> getCave() {
         return cave;
     }
 
-    public Carte[] getMain() {
+    public ArrayList <Carte>  getMain() {
         return main;
     }
 
@@ -33,7 +33,7 @@ public class Joueur {
         this.cave = cave;
     }
 
-    public void setMain(Carte[] main) {
+    public void setMain(ArrayList <Carte>  main) {
         this.main = main;
     }
 
@@ -62,7 +62,7 @@ public class Joueur {
         
     }
     
-    public Carte[] voirMesCartes(){
+    public ArrayList <Carte>  voirMesCartes(){
         return main;
     }
     

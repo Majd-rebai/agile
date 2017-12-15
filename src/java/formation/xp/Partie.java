@@ -4,6 +4,7 @@
  */
 package formation.xp;
 
+import formation.xp.Carte;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -106,9 +107,10 @@ public class Partie {
    
     public void piocheInitiale(){
         for (int i=0;i<nbrJoueur;i++){
-            Carte[] tmp= new Carte[2];
-            tmp[0]= deck.Pioche();
-            tmp[1]=deck.Pioche();
+       
+            ArrayList <Carte> tmp = new ArrayList <Carte>();
+            tmp.add(deck.Pioche());
+            tmp.add(deck.Pioche());
             joueurs.get(i).setMain(tmp);
         }
     }
