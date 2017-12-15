@@ -115,11 +115,68 @@ public class Partie {
         }
     }
     
+
     public void miserP(int m){
         this.dernierMise=m;
         this.miseTotale=miseTotale+m;
     }
 
 
+   public void faireAction(){
+       int i=0;
+       int tour=0;
+       int restant=joueurs.size();
+       while ( (i < joueurs.size()) && (restant>1) ){
+           joueurs.get(i).etreExclu(dernierMise);
+           if (joueurs.get(i).isExclu()) {
+               restant-=1;
+           }
+       
+           if ( joueurs.get(i).isExclu() == false){
+               System.out.println("Vous ête le joueur: "+ joueurs.get(i).getNom() +"! Veuillez choisir une action:\nmiser\nsuivre\nrelancer\nfaireTapis\npasser");
+               Scanner sc= new Scanner(System.in);
+               String action = sc.nextLine();
+               if (action.equals("miser")){
+                       System.out.println("donner le montant de ta mise");
+                       int mise=Integer.parseInt(sc.nextLine());
+                       joueurs.get(i).miser(mise, this);
+               }
+                       
+               if (action.equals("suivre")){
+                   joueurs.get(i).suivre(dernierMise, this);
+               }
+                   
+               if (action.equals("relance")){
+                   
+                   System.out.println("donner le montant de ta mise");
+                   int mise=Integer.parseInt(sc.nextLine());
+                   joueurs.get(i).relancer(mise, dernierMise, this);
+               }
+           
+           
+               if (action.equals("faireTapis")){
+                   joueurs.get(i).faireTapis(this);
+                   
+               }
+              
+               
+               if (action.equals("passer")){
+                   joueurs.get(i).passer();
+                   restant-=restant;
+               }
+       }
+       i=i+1;
+       if (i==joueurs.size()){
+           i=0;
+           tour+=1;
+       }
+ 
+   }
+
+    
+   }
 }
+
+
+
 
