@@ -114,6 +114,12 @@ public class Partie {
             joueurs.get(i).setMain(tmp);
         }
     }
+    
+    public void miserP(int m){
+        this.dernierMise=m;
+        this.miseTotale=miseTotale+m;
+    }
+
 
 }
 
