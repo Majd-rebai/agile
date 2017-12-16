@@ -30,12 +30,12 @@ public class PartieTest extends TestCase{
         int nbrJoueur =2;
         String[] nomJoueur ={"Majd","Bilel"};
         int[] montantJoueur ={100,200};
-        Partie instance = new Partie();
-        instance.init(nbrJoueur, nomJoueur, montantJoueur);
-        assertEquals(2, instance.getJoueurs().size() ) ;
-        assertEquals("Majd", instance.getJoueurs().get(0).getNom() ) ;
-        assertEquals(100, instance.getJoueurs().get(0).getMontant() ) ;
-        //assertEquals(2,instance.getJoueurs().get(0).getMain().length);
+        
+        Partie.init(nbrJoueur, nomJoueur, montantJoueur);
+        assertEquals(2, Partie.getJoueurs().size() ) ;
+        assertEquals("Majd", Partie.getJoueurs().get(0).getNom() ) ;
+        assertEquals(100, Partie.getJoueurs().get(0).getMontant() ) ;
+
 
     }
 }

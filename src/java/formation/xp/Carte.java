@@ -23,6 +23,7 @@ public class Carte {
         this.value=value;
     }
     @Override
+    // voir mes cartes
     public String toString(){
         if (this.value<10){
             return ""+this.value+" "+this.color.name();
