@@ -14,15 +14,17 @@ import java.util.Scanner;
  * @author rebai
  */
 public class Partie {
+
     private  static ArrayList<Carte> tapis = new ArrayList<Carte>();
     private  static int miseTotale;
-    private  static int dernierMise;
+    private  static int dernierMise=0;
     private  static int nbrJoueur;
     private  static List<Joueur> joueurs = new ArrayList<Joueur>();
     private  static Deck deck;
 
     public  static void setDeck(Deck deck) {
         Partie.deck = deck;
+
     }
 
     public static Deck getDeck() {
@@ -125,9 +127,63 @@ public class Partie {
             joueurs.get(i).setMain(tmp);
         }
     }
+   
+    public static final String COLOR_RESET = "\u001B[0m";
+    public static final String COLOR_RED = "\u001B[31m";
+    public static final String COLOR_GREEN = "\u001B[32m";
+
+
+
+    public final static void clearConsole()
+    {
+        try
+        {
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows"))
+            {
+                Runtime.getRuntime().exec("cls");
+            }
+            else
+            {
+                Runtime.getRuntime().exec("clear");
+            }
+        }
+        catch (final Exception e)
+        {
+            //  Handle any exceptions.
+        }
+    }
     
-
-
+   public void Affichage(Joueur J, int debut){
+        clearConsole();
+        System.out.print("\nJoueurs : ");
+        for (int i=0;i<joueurs.size();i++){
+            if (joueurs.get((debut+i)%joueurs.size()).isExclu()){
+                System.out.print(COLOR_RED+joueurs.get((debut+i)%joueurs.size()).getNom()+COLOR_RESET+"  ");
+            }
+            else{
+                if (J.getNom().equals(joueurs.get((debut+i)%joueurs.size()).getNom())){
+                    System.out.print(COLOR_GREEN+joueurs.get((debut+i)%joueurs.size()).getNom()+COLOR_RESET+"  ");
+                }
+                else{
+                    System.out.print(joueurs.get((debut+i)%joueurs.size()).getNom()+"  ");
+                }
+            }
+        }
+        System.out.print("\nTapis : ");
+        for (int i=0;i<tapis.size();i++){
+            System.out.print(tapis.get(i)+", ");
+        }
+        System.out.print("\nMise Totale : "+this.miseTotale);
+        if (this.dernierMise != 0){
+            System.out.print("\nDernière Mise : "+this.dernierMise);
+        }
+        System.out.print("\nMain : "+J.getMain().get(0)+", "+J.getMain().get(1));
+        System.out.print("\nMontant disponible : " + J.getMontant() );
+        
+   }
+    
    public void faireAction(){
 
        int croupier=0;
@@ -149,6 +205,7 @@ public class Partie {
            }
        
            if ( joueurs.get(i%joueurs.size()).isExclu() == false){
+               Affichage(joueurs.get(i%joueurs.size()),(croupier+joueurs.size()-3)%joueurs.size());
                System.out.println("Vous ête le joueur: "+ joueurs.get(i%joueurs.size()).getNom() +"! Veuillez choisir une action:");
                if (firstMise!=0){
                    System.out.println("\nsuivre\nrelancer\nfaireTapis\npasser\n");

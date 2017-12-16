@@ -22,4 +22,24 @@ public class Carte {
         this.color=color;
         this.value=value;
     }
+    @Override
+    public String toString(){
+        if (this.value<10){
+            return ""+this.value+" "+this.color.name();
+        }
+        else{
+            if (this.value == 11){
+                return "J "+this.color.name();
+            }
+            if (this.value == 12){
+                return "Q "+this.color.name();
+            }
+            if (this.value == 14){
+                return "K "+this.color.name();
+            }
+            else{
+                return "A "+this.color.name();
+            }
+        }
+    }
 }
