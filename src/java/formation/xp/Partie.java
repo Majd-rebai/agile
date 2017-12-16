@@ -14,47 +14,47 @@ import java.util.Scanner;
  * @author rebai
  */
 public class Partie {
-    private ArrayList<Carte> tapis = new ArrayList<Carte>();
-    private static int miseTotale;
-    private int dernierMise;
-    private int nbrJoueur;
-    private List<Joueur> joueurs = new ArrayList<Joueur>();
-    private Deck deck;
+    private  static ArrayList<Carte> tapis = new ArrayList<Carte>();
+    private  static int miseTotale;
+    private  static int dernierMise;
+    private  static int nbrJoueur;
+    private  static List<Joueur> joueurs = new ArrayList<Joueur>();
+    private  static Deck deck;
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
+    public  static void setDeck(Deck deck) {
+        Partie.deck = deck;
     }
 
-    public Deck getDeck() {
+    public static Deck getDeck() {
         return deck;
     }
 
-    public void setJoueurs(List<Joueur> joueurs) {
-        this.joueurs = joueurs;
+    public  static void setJoueurs(List<Joueur> joueurs) {
+        Partie.joueurs = joueurs;
     }
 
-    public List<Joueur> getJoueurs() {
+    public  static List<Joueur> getJoueurs() {
         return joueurs;
     }
     
 
-    public void setDernierMise(int dernierMise) {
-        this.dernierMise = dernierMise;
+    public  static void setDernierMise(int dernierMise) {
+        Partie.dernierMise = dernierMise;
     }
 
-    public void setMiseTotale(int miseTotale) {
-        this.miseTotale = miseTotale;
+    public  static void setMiseTotale(int miseTotale) {
+        Partie.miseTotale = miseTotale;
     }
 
-    public void setNbrJoueur(int nbrJoueur) {
-        this.nbrJoueur = nbrJoueur;
+    public  static void setNbrJoueur(int nbrJoueur) {
+        Partie.nbrJoueur = nbrJoueur;
     }
 
-    public void setTapis(ArrayList<Carte> tapis) {
-        this.tapis = tapis;
+    public  static void setTapis(ArrayList<Carte> tapis) {
+        Partie.tapis = tapis;
     }
 
-    public int getDernierMise() {
+    public  static int getDernierMise() {
         return dernierMise;
     }
 
@@ -62,11 +62,11 @@ public class Partie {
         return miseTotale;
     }
 
-    public int getNbrJoueur() {
+    public  static int getNbrJoueur() {
         return nbrJoueur;
     }
 
-    public ArrayList<Carte> getTapis() {
+    public  static ArrayList<Carte> getTapis() {
         return tapis;
     }
 
@@ -74,33 +74,33 @@ public class Partie {
 
    
 
-    public void initNbrJoueurs(String[] nomJoueur, int[] montantJoueur ){
+    public  static void initNbrJoueurs(String[] nomJoueur, int[] montantJoueur ){
         System.out.println("Veuillez saisir le nombre de joueurs:");
         Scanner sc= new Scanner(System.in);
         String nbrJoueurs = sc.nextLine();
-        this.setNbrJoueur(Integer.parseInt(nbrJoueurs));  
-        init(this.nbrJoueur,nomJoueur,montantJoueur);
+        Partie.setNbrJoueur(Integer.parseInt(nbrJoueurs));  
+        init(Partie.nbrJoueur,nomJoueur,montantJoueur);
     }
 
 
 
-   public void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
+   public static void init(int nbrJoueur, String[] nomJoueur, int[] montantJoueur ){
                 System.out.println("Bienvenu au jeu Poker! ");
                 //initialisatiion d'une partie avec une miseTotale=0 et derniereMise=0 et nobre de joueur introduit par les joueurs
                 //System.out.println("Veuillez saisir le nombre de joueurs:");
                 //Scanner sc= new Scanner(System.in);
                 //String nbrJoueur = sc.nextLine();
                 //this.setNbrJoueur(Integer.parseInt(nbrJoueur));
-                this.setDernierMise(0);
-                this.setMiseTotale(0);
-                this.setNbrJoueur(nbrJoueur);
+                Partie.setDernierMise(0);
+                Partie.setMiseTotale(0);
+                Partie.setNbrJoueur(nbrJoueur);
                 deck = new Deck();
                 List<Joueur> listJoueur= new ArrayList<Joueur>();
                 for (int i=0; i< nbrJoueur; i++){
                     Joueur joueur=new Joueur(nomJoueur[i],montantJoueur[i],0);
                     listJoueur.add(joueur);
                 }
-                this.joueurs=listJoueur;
+                Partie.joueurs=listJoueur;
                 //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
                     //introduire le nom de joueur
                     //System.out.println("Veuillez saisir le nom du joueur "+i);
@@ -127,11 +127,6 @@ public class Partie {
     }
     
 
-    public void miserP(int m){
-        this.dernierMise=m;
-        this.miseTotale=miseTotale+m;
-    }
-
 
    public void faireAction(){
 
@@ -140,8 +135,8 @@ public class Partie {
        System.out.println(joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).getNom()+", choisir la petite mise");
        Scanner sc= new Scanner(System.in);
        int petiteBlind=Integer.parseInt(sc.nextLine());
-       joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).miser(petiteBlind, this);
-       joueurs.get((croupier+joueurs.size()-2)%joueurs.size()).miser(petiteBlind*2, this);
+       joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).miser(petiteBlind);
+       joueurs.get((croupier+joueurs.size()-2)%joueurs.size()).miser(petiteBlind*2);
        int i=(croupier+joueurs.size()-3)%joueurs.size();
        int tour=0;
        int k=0;
@@ -149,7 +144,6 @@ public class Partie {
        int restant=joueurs.size();
        boolean NotDone = true;
        while ( NotDone ){
-           joueurs.get(i%joueurs.size()).etreExclu(dernierMise);
            if (joueurs.get(i%joueurs.size()).isExclu()) {
                restant-=1;
            }
@@ -165,25 +159,31 @@ public class Partie {
                }
                String action = sc.nextLine();
                if (action.equals("miser")){
+                   int mise;
+                   System.out.println("donner le montant de ta mise");
+                   mise=Integer.parseInt(sc.nextLine());
+                   while (mise>joueurs.get(i%joueurs.size()).getMontant() || (mise<=Partie.getDernierMise()) ){
                        System.out.println("donner le montant de ta mise");
-                       int mise=Integer.parseInt(sc.nextLine());
-                       joueurs.get(i%joueurs.size()).miser(mise, this);
+                       mise=Integer.parseInt(sc.nextLine());
+                   }
+                   joueurs.get(i%joueurs.size()).miser(mise);
+                   
                }
                        
                if (action.equals("suivre")){
-                   joueurs.get(i%joueurs.size()).suivre(dernierMise, this);
+                   joueurs.get(i%joueurs.size()).suivre();
                }
                    
                if (action.equals("relance")){
                    
                    System.out.println("donner le montant de ta mise");
                    int mise=Integer.parseInt(sc.nextLine());
-                   joueurs.get(i%joueurs.size()).relancer(mise, dernierMise, this);
+                   joueurs.get(i%joueurs.size()).relancer(mise);
                }
            
            
                if (action.equals("faireTapis")){
-                   joueurs.get(i%joueurs.size()).faireTapis(this);
+                   joueurs.get(i%joueurs.size()).faireTapis();
                    
                }
               

@@ -91,27 +91,26 @@ public class Joueur {
     
     
     
-    public void miser(int m,Partie game){
-        if (m<= this.getMontant()){
+    public void miser(int m){
             this.setMontant(this.getMontant()-m);
             this.miseAct=m;
-        }
-        game.miserP(m);
+            Partie.setDernierMise(m);
+            Partie.setMiseTotale(Partie.getMiseTotale()+m);
     }
         
-    public void suivre(int derniereMise, Partie game){
-        miser(derniereMise,game);
+    public void suivre(){
+        miser(Partie.getDernierMise());
         
         
     }
-    public void faireTapis(Partie game){
-        miser(this.getMontant(), game);
+    public void faireTapis(){
+        miser(this.getMontant());
     }
     
 
-    public void relancer(int mise, int derniereMise, Partie game){
-        if (mise >= derniereMise){
-            miser(mise, game);
+    public void relancer(int mise){
+        if (mise > Partie.getDernierMise()){
+            miser(mise);
         }
     }
     public void passer(){
