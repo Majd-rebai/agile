@@ -118,7 +118,7 @@ public class Partie {
     }
                
    
-    public void piocheInitiale(){
+    public static void piocheInitiale(){
         for (int i=0;i<nbrJoueur;i++){
        
             ArrayList <Carte> tmp = new ArrayList <Carte>();
@@ -155,7 +155,7 @@ public class Partie {
         }
     }
     
-   public void Affichage(Joueur J, int debut){
+   public static void Affichage(Joueur J, int debut){
         clearConsole();
         System.out.print("\nJoueurs : ");
         for (int i=0;i<joueurs.size();i++){
@@ -175,16 +175,16 @@ public class Partie {
         for (int i=0;i<tapis.size();i++){
             System.out.print(tapis.get(i)+", ");
         }
-        System.out.print("\nMise Totale : "+this.miseTotale);
-        if (this.dernierMise != 0){
-            System.out.print("\nDernière Mise : "+this.dernierMise);
+        System.out.print("\nMise Totale : "+miseTotale);
+        if (dernierMise != 0){
+            System.out.print("\nDernière Mise : "+dernierMise);
         }
         System.out.print("\nMain : "+J.getMain().get(0)+", "+J.getMain().get(1));
         System.out.print("\nMontant disponible : " + J.getMontant() );
         
    }
     
-   public void faireAction(){
+   public static void faireAction(){
 
        int croupier=0;
        System.out.println(joueurs.get(croupier).getNom()+", vous êtes le croupier");
@@ -255,7 +255,7 @@ public class Partie {
             i=i+1;
             if (k==joueurs.size()){
                 k=0;
-                this.tapis.add(this.deck.Pioche());
+                tapis.add(deck.Pioche());
                 tour+=1;
                 
             }
