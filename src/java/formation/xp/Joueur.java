@@ -32,6 +32,10 @@ public class Joueur {
         return main;
     }
 
+    public void clearMain(){
+        this.main.clear();
+    }
+    
     public boolean isCroupier() {
         return croupier;
     }

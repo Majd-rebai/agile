@@ -21,6 +21,15 @@ public class Partie {
     private  static int nbrJoueur;
     private  static List<Joueur> joueurs = new ArrayList<Joueur>();
     private  static Deck deck;
+    private static int croupier = 0;
+
+    public static int getCroupier() {
+        return croupier;
+    }
+
+    public static void setCroupier(int croupier) {
+        Partie.croupier = croupier;
+    }
 
     public  static void setDeck(Deck deck) {
         Partie.deck = deck;
@@ -181,12 +190,12 @@ public class Partie {
         }
         System.out.print("\nMain : "+J.getMain().get(0)+", "+J.getMain().get(1));
         System.out.print("\nMontant disponible : " + J.getMontant() );
+        System.out.print("\nChoisir une action : ");
         
    }
     
    public static void faireAction(){
 
-       int croupier=0;
        System.out.println(joueurs.get(croupier).getNom()+", vous êtes le croupier");
        System.out.println(joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).getNom()+", choisir la petite mise");
        Scanner sc= new Scanner(System.in);
@@ -198,29 +207,31 @@ public class Partie {
        int k=0;
        int firstMise = 0;
        int restant=joueurs.size();
+       piocheInitiale();
        boolean NotDone = true;
        while ( NotDone ){
+           joueurs.get(i%joueurs.size()).etreExclu(dernierMise);
            if (joueurs.get(i%joueurs.size()).isExclu()) {
                restant-=1;
            }
        
            if ( joueurs.get(i%joueurs.size()).isExclu() == false){
                Affichage(joueurs.get(i%joueurs.size()),(croupier+joueurs.size()-3)%joueurs.size());
-               System.out.println("Vous ête le joueur: "+ joueurs.get(i%joueurs.size()).getNom() +"! Veuillez choisir une action:");
+               //System.out.println("Vous ête le joueur: "+ joueurs.get(i%joueurs.size()).getNom() +"! Veuillez choisir une action:");
                if (firstMise!=0){
-                   System.out.println("\nsuivre\nrelancer\nfaireTapis\npasser\n");
+                   System.out.println("\tsuivre\trelancer\tfaireTapis\tpasser\n");
                }
                else{
-                   System.out.println("\nmiser\n");
+                   System.out.println("\tmiser\n");
                    firstMise=1;
                }
                String action = sc.nextLine();
                if (action.equals("miser")){
                    int mise;
-                   System.out.println("donner le montant de ta mise");
+                   System.out.println("donner le montant de la mise");
                    mise=Integer.parseInt(sc.nextLine());
-                   while (mise>joueurs.get(i%joueurs.size()).getMontant() || (mise<=Partie.getDernierMise()) ){
-                       System.out.println("donner le montant de ta mise");
+                   while (mise>joueurs.get(i%joueurs.size()).getMontant() || (mise<Partie.getDernierMise()) ){
+                       System.out.println("donner le montant de la mise");
                        mise=Integer.parseInt(sc.nextLine());
                    }
                    joueurs.get(i%joueurs.size()).miser(mise);
@@ -233,7 +244,7 @@ public class Partie {
                    
                if (action.equals("relance")){
                    
-                   System.out.println("donner le montant de ta mise");
+                   System.out.println("donner le montant de la mise");
                    int mise=Integer.parseInt(sc.nextLine());
                    joueurs.get(i%joueurs.size()).relancer(mise);
                }
@@ -269,14 +280,34 @@ public class Partie {
     
    
    
-   public Joueur gagnat(){
-       Joueur gagnant=new Joueur();
-       for (int i=0;i<joueurs.size();i++){
-           if (joueurs.get(i).isExclu()==false){
-               
+   public static void finTour(int restant){
+       if (restant == 1){
+           
+       }
+       //Passage du croupier
+       croupier = (croupier -1) % joueurs.size();
+       tapis.clear();
+       miseTotale = 0;
+       dernierMise = 0;
+       deck= new Deck();
+       int montantMin = 500;    // Montant minimal pour accéder à la table est:montantMin
+       for (int i=0; i< joueurs.size();i++){
+           if (joueurs.get(i).getMontant() > montantMin){
+               joueurs.get(i).setExclu(false);
+               joueurs.get(i).clearMain();
+           }
+           else {
+               // si le prochain croupier est exclu, le prochain croupier est celui à sa gauche
+               if (i == croupier){
+                   croupier = (croupier -1) % joueurs.size();
+               }
+               joueurs.remove(i);
+               if (i<croupier){croupier = croupier-1;}
+               i=i-1;            
            }
        }
-       return gagnant;
+       
+       
    }
 
 }
