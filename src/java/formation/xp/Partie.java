@@ -6,7 +6,11 @@ package formation.xp;
 
 import formation.xp.Carte;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -112,18 +116,7 @@ public class Partie {
                     listJoueur.add(joueur);
                 }
                 Partie.joueurs=listJoueur;
-                //for (int i=0; i<Integer.parseInt(nbrJoueur);i++){
-                    //introduire le nom de joueur
-                    //System.out.println("Veuillez saisir le nom du joueur "+i);
-                    //String nom= sc.nextLine();
-                    // introduir la cave du joueur
-                    //System.out.println("Veuillez saisir le montant du joueur "+i);
-                    //int montant= Integer.parseInt(sc.nextLine());
-                    
-                    //Joueur joueur=new Joueur(nom,montant);
-                    //listJoueur.add(joueur);
-                    
-                     //this.joueurs=listJoueur;
+                faireAction();
     }
                
    
@@ -190,12 +183,13 @@ public class Partie {
         }
         System.out.print("\nMain : "+J.getMain().get(0)+", "+J.getMain().get(1));
         System.out.print("\nMontant disponible : " + J.getMontant() );
-        System.out.print("\nChoisir une action : ");
+        System.out.print("\nEcrire le numérode l'action à faire : ");
         
    }
     
    public static void faireAction(){
 
+    while(joueurs.size()>1){   
        System.out.println(joueurs.get(croupier).getNom()+", vous êtes le croupier");
        System.out.println(joueurs.get((croupier+joueurs.size()-1)%joueurs.size()).getNom()+", choisir la petite mise");
        Scanner sc= new Scanner(System.in);
@@ -219,14 +213,14 @@ public class Partie {
                Affichage(joueurs.get(i%joueurs.size()),(croupier+joueurs.size()-3)%joueurs.size());
                //System.out.println("Vous ête le joueur: "+ joueurs.get(i%joueurs.size()).getNom() +"! Veuillez choisir une action:");
                if (firstMise!=0){
-                   System.out.println("\tsuivre\trelancer\tfaireTapis\tpasser\n");
+                   System.out.println("\t1)suivre\t2)relancer\t3)faireTapis\t4)passer\n");
                }
                else{
-                   System.out.println("\tmiser\n");
+                   System.out.println("\t0)miser\t4)passer\n");
                    firstMise=1;
                }
                String action = sc.nextLine();
-               if (action.equals("miser")){
+               if (action.equals("0")){
                    int mise;
                    System.out.println("donner le montant de la mise");
                    mise=Integer.parseInt(sc.nextLine());
@@ -238,11 +232,11 @@ public class Partie {
                    
                }
                        
-               if (action.equals("suivre")){
+               if (action.equals("1")){
                    joueurs.get(i%joueurs.size()).suivre();
                }
                    
-               if (action.equals("relance")){
+               if (action.equals("2")){
                    
                    System.out.println("donner le montant de la mise");
                    int mise=Integer.parseInt(sc.nextLine());
@@ -250,13 +244,13 @@ public class Partie {
                }
            
            
-               if (action.equals("faireTapis")){
+               if (action.equals("3")){
                    joueurs.get(i%joueurs.size()).faireTapis();
                    
                }
               
                
-               if (action.equals("passer")){
+               if (action.equals("4")){
                    joueurs.get(i%joueurs.size()).passer();
                    restant-=restant;
                }
@@ -274,15 +268,85 @@ public class Partie {
                 NotDone = false;
             }
         }
- 
+       finTour(restant);
+   }
    }
 
-    
+   public static int valueMain(ArrayList<Carte> Main, ArrayList<Carte> tapis1){
+       // On ne va prendre en compte que les doubles et triples
+       int Double=0;
+       int Triple=0;
+       List<Integer> tmpMain = new ArrayList<Integer>(); 
+       for (int i=0; i<Main.size(); i++){
+           tmpMain.add(Main.get(i).value);
+       }
+       for (int i=0; i<tapis1.size(); i++){
+           tmpMain.add(tapis1.get(i).value);
+       }
+       Collections.sort(tmpMain);
+       int tmp1=tmpMain.get(0);
+       int tmp2=tmpMain.get(1);
+       if (tmp1==tmp2) {Double++;}
+       for (int i=2; i<7;i++){
+           if (tmp2==tmp1 && tmp2==tmpMain.get(i)){
+               Triple++;
+           }
+           if (tmp2==tmpMain.get(i)){
+               Double++;
+           }
+           tmp1=tmp2;
+           tmp2=tmpMain.get(i);
+       }
+       if (Triple != 0){
+           return 100*Triple;
+       }
+       if (Double !=0){
+           return 15*Double;
+       }
+       else {
+           return tmpMain.get(6);
+       }
+   } 
+   
+   public static void diviserGain(){
+       Map<Integer,Integer> MainFinal = new HashMap<Integer,Integer>();
+       int max=0;
+       int value;
+       for (int i=0;i<joueurs.size();i++){
+           if (!(joueurs.get(i).isExclu())){
+               value = valueMain(joueurs.get(i).getMain(),tapis);
+               if (value>max){max=value;}
+               MainFinal.put(i,value);
+           }
+       }
+       for(Iterator<Map.Entry<Integer,Integer>> it = MainFinal.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<Integer, Integer> entry = it.next();
+            if(entry.getValue() < max) {
+                it.remove();
+            }
+        }
+       System.out.print("Bravo ");
+       int partMontant = (int)(miseTotale / MainFinal.size()); 
+       for(Iterator<Map.Entry<Integer,Integer>> it = MainFinal.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<Integer, Integer> entry = it.next();
+            joueurs.get(entry.getKey()).setMontant(joueurs.get(entry.getKey()).getMontant()+partMontant);
+            System.out.print(joueurs.get(entry.getKey()).getNom()+", ");
+        }
+        System.out.print("vous avez gagné la partie!!");
+   }
    
    
    public static void finTour(int restant){
        if (restant == 1){
-           
+           for (int i=0;i<joueurs.size();i++){
+               if (!(joueurs.get(i).isExclu())) {
+                   System.out.print("Bravo "+joueurs.get(i).getNom()+", tu as gagné la partie!!");
+                   joueurs.get(i).setMontant(joueurs.get(i).getMontant()+miseTotale);
+               }
+           }
+       }
+       else{
+           diviserGain();
        }
        //Passage du croupier
        croupier = (croupier -1) % joueurs.size();
